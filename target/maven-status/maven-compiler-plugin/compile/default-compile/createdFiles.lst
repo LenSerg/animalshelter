@@ -1,1 +1,3 @@
+com/volesh/animalshelter/entity/Animal.class
 com/volesh/animalshelter/App.class
+com/volesh/animalshelter/utils/HibernateUtil.class

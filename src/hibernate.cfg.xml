@@ -9,9 +9,9 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/db_applicant</property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/animal_shelter</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">1q2w3e</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
@@ -29,7 +29,7 @@
         <property name="show_sql">true</property>
 
         <!-- Mapping files -->
-        <mapping resource="students/entity/Profession.hbm.xml"/>
+        <mapping resource="com.volesh.animalshelter.entity.Animal.hbm.xml"/>
 
     </session-factory>
 
