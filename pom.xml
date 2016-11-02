@@ -13,7 +13,20 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <hibernate-version>5.2.3.Final</hibernate-version>
+    <hibernate-tools-version>5.1.0.Final</hibernate-tools-version>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <mainClass>com.volesh.animalshelter.App</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
   <dependencies>
 
@@ -22,7 +35,6 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.40</version>
     </dependency>
-
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -37,4 +49,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+
+
 </project>

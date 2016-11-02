@@ -29,7 +29,9 @@
         <property name="show_sql">true</property>
 
         <!-- Mapping files -->
-        <mapping resource="com.volesh.animalshelter.entity.Animal.hbm.xml"/>
+        <mapping resource="Animal.hbm.xml"/>
+        <mapping resource="Person.hbm.xml"/>
+        <mapping resource="Sponsor.hbm.xml"/>
 
     </session-factory>
 
