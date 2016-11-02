@@ -1,5 +1,10 @@
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/AnimalDAO.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Person.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Sponsor.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/utils/HibernateUtil.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/SickAnimal.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/App.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Photo.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/AnimalStatus.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Animal.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/DeadAnimal.java

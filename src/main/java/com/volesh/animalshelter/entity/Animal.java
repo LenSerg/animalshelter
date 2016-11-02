@@ -1,6 +1,7 @@
 package com.volesh.animalshelter.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Animal {
     private Long id;
@@ -13,6 +14,33 @@ public class Animal {
     private String specialSigns;
     private String status;
     private Date registrationDate;
+    private List<SickAnimal> sickList;
+    private List<Photo> photoList;
+    private List<AnimalStatus> statusList;
+
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
+    public List<AnimalStatus> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<AnimalStatus> statusList) {
+        this.statusList = statusList;
+    }
+
+    public List<SickAnimal> getSickList() {
+        return sickList;
+    }
+
+    public void setSickList(List<SickAnimal> sickList) {
+        this.sickList = sickList;
+    }
 
     public String getName() {
         return name;

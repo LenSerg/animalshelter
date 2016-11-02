@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.volesh.animalshelter.entity">
     <class name="Animal" table="animal">
         <id name="id" column="id">
             <generator class="native"/>
         </id>
+        <bag name="sickList" inverse="true" cascade="all-delete-orphan">
+            <key column="animal_id"/>
+            <one-to-many class="SickAnimal"/>
+        </bag>
+        <bag name="photoList" inverse="true" cascade="all-delete-orphan">
+            <key column="animal_id"/>
+            <one-to-many class="Photo"/>
+        </bag>
+        <bag name="statusList" inverse="true" cascade="all-delete-orphan">
+            <key column="animal_id"/>
+            <one-to-many class="AnimalStatus"/>
+        </bag>
         <property name="name" column="name"/>
         <property name="type" column="type"/>
         <property name="breed" column="breed"/>

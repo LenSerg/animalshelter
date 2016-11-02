@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.volesh.animalshelter.entity">
+    <class name="SickAnimal" table="sick_animal">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="animal" column="animal_id" class="com.volesh.animalshelter.entity.Animal"/>
+        <property name="name" column= "sick_name"/>
+        <property name="description" column="description"/>
+        <property name="beginningDate" column="date_begin"/>
+        <property name="endingDate" column="date_end"/>
+        <property name="tratmentCosts" column="health_money"/>
+    </class>
+</hibernate-mapping>
