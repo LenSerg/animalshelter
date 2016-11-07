@@ -8,15 +8,33 @@ public class Animal {
     private String name;
     private String type;
     private String breed;
-    private int age;
+    private Integer age;
     private String color;
-    private int sex;
+    private Integer sex;
     private String specialSigns;
-    private String status;
+    private Integer status;
     private Date registrationDate;
     private List<SickAnimal> sickList;
     private List<Photo> photoList;
     private List<AnimalStatus> statusList;
+
+    public Animal() {
+
+    }
+
+    public Animal(String name, String type, String breed, Integer age,
+                  String color, Integer sex, String specialSigns, Date registrationDate,
+                  Integer status) {
+        this.name = name;
+        this.type = type;
+        this.breed = breed;
+        this.age = age;
+        this.color = color;
+        this.sex = sex;
+        this.specialSigns = specialSigns;
+        this.registrationDate = registrationDate;
+        this.status = status;
+    }
 
     public List<Photo> getPhotoList() {
         return photoList;
@@ -98,11 +116,11 @@ public class Animal {
         this.specialSigns = specialSigns;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

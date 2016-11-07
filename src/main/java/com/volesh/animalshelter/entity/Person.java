@@ -1,6 +1,7 @@
 package com.volesh.animalshelter.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Person {
     private Long id;
@@ -14,6 +15,15 @@ public class Person {
     private String role;
     private int isPrivate;
     private Date registrationDate;
+    private List<AnimalStatus> statusList;
+
+    public List<AnimalStatus> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<AnimalStatus> statusList) {
+        this.statusList = statusList;
+    }
 
     public Long getId() {
         return id;

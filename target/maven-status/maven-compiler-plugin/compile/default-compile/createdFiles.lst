@@ -3,8 +3,13 @@ com/volesh/animalshelter/entity/AnimalStatus.class
 com/volesh/animalshelter/App.class
 com/volesh/animalshelter/entity/Person.class
 com/volesh/animalshelter/entity/Sponsor.class
+com/volesh/animalshelter/gui/AnimalModel.class
+com/volesh/animalshelter/dao/PersonDAO.class
 com/volesh/animalshelter/entity/Animal.class
 com/volesh/animalshelter/utils/HibernateUtil.class
 com/volesh/animalshelter/entity/DeadAnimal.class
+com/volesh/animalshelter/gui/AnimalDialog.class
 com/volesh/animalshelter/dao/AnimalDAO.class
+com/volesh/animalshelter/gui/MainFrame.class
+com/volesh/animalshelter/gui/AnimalPanel.class
 com/volesh/animalshelter/entity/Photo.class
