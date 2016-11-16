@@ -3,13 +3,11 @@ package com.volesh.animalshelter.gui;
 import com.volesh.animalshelter.entity.Animal;
 
 import javax.swing.table.AbstractTableModel;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AnimalModel extends AbstractTableModel {
 
-    private static String[] headers = {"№", "Кличка", "Вид", "Пол", "Порода", "Дата регистрации",
-            "Статус"};
+    private static String[] headers = {"№", "Кличка", "Вид", "Пол", "Порода", "№ вольера", "Дата регистрации"};
 
     private List<Animal> animals;
 
@@ -17,6 +15,7 @@ public class AnimalModel extends AbstractTableModel {
         this.animals = animals;
     }
 
+    @Override
     public int getRowCount() {
         return animals.size();
     }
@@ -26,10 +25,12 @@ public class AnimalModel extends AbstractTableModel {
         return headers[column];
     }
 
+    @Override
     public int getColumnCount() {
         return headers.length;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Animal animal = animals.get(rowIndex);
         switch (columnIndex) {
@@ -40,20 +41,13 @@ public class AnimalModel extends AbstractTableModel {
             case 2:
                 return animal.getType();
             case 3:
-                switch (animal.getSex()) {
-                    case 1:
-                        return "Муж";
-                    case 2:
-                        return "Жен";
-                    default:
-                        return "Неопределен";
-                }
+                return animal.getSexString();
             case 4:
                 return animal.getBreed();
             case 5:
-                return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(animal.getRegistrationDate());
+                return animal.getCageNumber();
             default:
-                return animal.getStatus() > 0 ? "Здоров" : "Болен";
+                return animal.getDateString();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.volesh.animalshelter.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,8 @@ public class Animal {
     private String name;
     private String type;
     private String breed;
-    private Integer age;
+    private String age;
+    private Integer cageNumber;
     private String color;
     private Integer sex;
     private String specialSigns;
@@ -22,18 +24,31 @@ public class Animal {
 
     }
 
-    public Animal(String name, String type, String breed, Integer age,
-                  String color, Integer sex, String specialSigns, Date registrationDate,
+    public Animal(String name, String type, String breed, String age,
+                  String color, Integer cageNumber, Integer sex, String specialSigns, Date registrationDate,
                   Integer status) {
         this.name = name;
         this.type = type;
         this.breed = breed;
+        this.cageNumber = cageNumber;
         this.age = age;
         this.color = color;
         this.sex = sex;
         this.specialSigns = specialSigns;
         this.registrationDate = registrationDate;
         this.status = status;
+    }
+
+    public Integer getCageNumber() {
+        return cageNumber;
+    }
+
+    public void setCageNumber(Integer cageNumber) {
+        this.cageNumber = cageNumber;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public List<Photo> getPhotoList() {
@@ -84,11 +99,11 @@ public class Animal {
         this.breed = breed;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -138,5 +153,39 @@ public class Animal {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSexString() {
+        switch (sex) {
+            case 1:
+                return "муж";
+            case 2:
+                return  "жен";
+            default:
+                return "неопред";
+        }
+    }
+
+    public String getDateString() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(registrationDate);
+    }
+
+    public String getStatusString() {
+        String statusStr = "";
+        switch (Math.abs(status)) {
+            case 1:
+                statusStr = "В приюте";
+                break;
+            case 2:
+                statusStr = "На передержке";
+                break;
+            case 3:
+                statusStr = "Отдано";
+                break;
+            case 0:
+                statusStr = "Мертво";
+                break;
+        }
+        return statusStr;
     }
 }

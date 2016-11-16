@@ -7,11 +7,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         JTabbedPane tabbedPane = new JTabbedPane();
-        JPanel panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout());
-        panel1.add(new AnimalPanel(), BorderLayout.CENTER);
-        tabbedPane.add("Животные", panel1);
-        tabbedPane.add("Передержка", new AnimalPanel());
+        tabbedPane.add("Животные", new AnimalPanel());
         add(tabbedPane);
 
 

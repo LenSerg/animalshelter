@@ -1,5 +1,6 @@
 package com.volesh.animalshelter.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AnimalStatus {
@@ -8,6 +9,16 @@ public class AnimalStatus {
     private Person person;
     private String statusString;
     private Date statusDate;
+
+    public AnimalStatus() {
+    }
+
+    public AnimalStatus(Animal animal, Person person, String statusString, Date statusDate) {
+        this.animal = animal;
+        this.person = person;
+        this.statusString = statusString;
+        this.statusDate = statusDate;
+    }
 
     public Long getId() {
         return id;
@@ -43,6 +54,10 @@ public class AnimalStatus {
 
     public Date getStatusDate() {
         return statusDate;
+    }
+
+    public String getStatusDateString() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(statusDate);
     }
 
     public void setStatusDate(Date statusDate) {

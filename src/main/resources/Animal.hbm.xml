@@ -21,6 +21,7 @@
         </bag>
         <property name="name" column="name"/>
         <property name="type" column="type"/>
+        <property name="cageNumber" column="cageNumber"/>
         <property name="breed" column="breed"/>
         <property name="age" column="age"/>
         <property name="color" column="color"/>

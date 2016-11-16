@@ -1,10 +1,22 @@
 package com.volesh.animalshelter.entity;
 
+import java.util.Date;
+
 public class Photo {
     private Long id;
     private Animal animal;
     private String url;
-    private String addingDate;
+    private Date addingDate;
+
+    public Photo() {
+
+    }
+
+    public Photo(Animal animal, String url, Date addingDate) {
+        this.animal = animal;
+        this.url = url;
+        this.addingDate = addingDate;
+    }
 
     public Long getId() {
         return id;
@@ -30,11 +42,11 @@ public class Photo {
         this.url = url;
     }
 
-    public String getAddingDate() {
+    public Date getAddingDate() {
         return addingDate;
     }
 
-    public void setAddingDate(String addingDate) {
+    public void setAddingDate(Date addingDate) {
         this.addingDate = addingDate;
     }
 }

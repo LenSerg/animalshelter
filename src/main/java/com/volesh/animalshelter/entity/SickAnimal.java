@@ -1,5 +1,6 @@
 package com.volesh.animalshelter.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SickAnimal {
@@ -10,6 +11,18 @@ public class SickAnimal {
     private Date beginningDate;
     private Date endingDate;
     private Integer tratmentCosts;
+
+    public SickAnimal() {
+    }
+
+    public SickAnimal(Animal animal, String name, String description, Date beginningDate, Date endingDate, Integer tratmentCosts) {
+        this.animal = animal;
+        this.name = name;
+        this.description = description;
+        this.beginningDate = beginningDate;
+        this.endingDate = endingDate;
+        this.tratmentCosts = tratmentCosts;
+    }
 
     public Long getId() {
         return id;
@@ -47,6 +60,10 @@ public class SickAnimal {
         return beginningDate;
     }
 
+    public String getBeginningDateString() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(beginningDate);
+    }
+
     public void setBeginningDate(Date beginningDate) {
         this.beginningDate = beginningDate;
     }
@@ -55,12 +72,23 @@ public class SickAnimal {
         return endingDate;
     }
 
+    public String getEndingDateString() {
+        if (endingDate.before(new Date(1))) {
+            return "";
+        } else {
+        }
+            return new SimpleDateFormat("dd-MM-yyyy").format(endingDate);
+    }
+
     public void setEndingDate(Date endingDate) {
         this.endingDate = endingDate;
     }
 
     public Integer getTratmentCosts() {
         return tratmentCosts;
+    }
+    public String getTratmentCostsString() {
+        return tratmentCosts == -1 ? "" : tratmentCosts + "";
     }
 
     public void setTratmentCosts(Integer tratmentCosts) {

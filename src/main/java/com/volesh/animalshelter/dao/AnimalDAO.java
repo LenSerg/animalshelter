@@ -39,7 +39,25 @@ public class AnimalDAO {
     public List<Animal> findAnimal() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        List<Animal> result = session.createQuery("from Animal order by name").list();
+        List<Animal> result = session.createQuery("from Animal").list();
+        for (Animal a : result) {
+            initializeAnimalOption(a);
+        }
+        session.getTransaction().commit();
+        return result;
+    }
+    public List<Animal> findAnimalFilter(String type, String breed, int[] params) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        String query = "from Animal where type like '%"+type+
+                "%' and breed like '%"+breed+"%' and status in (";
+        for (int i = 0; i < params.length; i++) {
+            query += params[i];
+            if (i != params.length - 1)
+                query += ", ";
+        }
+        query += ")";
+        List<Animal> result = session.createQuery(query).list();
         for (Animal a : result) {
             initializeAnimalOption(a);
         }
