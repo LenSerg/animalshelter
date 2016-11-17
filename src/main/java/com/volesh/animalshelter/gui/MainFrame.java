@@ -8,6 +8,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("Животные", new AnimalPanel());
+        tabbedPane.add("Клиенты", new PersonPanel());
         add(tabbedPane);
 
 

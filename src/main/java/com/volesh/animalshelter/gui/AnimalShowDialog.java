@@ -2,6 +2,7 @@ package com.volesh.animalshelter.gui;
 
 import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.AnimalStatus;
+import com.volesh.animalshelter.entity.Person;
 import com.volesh.animalshelter.entity.Photo;
 
 import javax.imageio.ImageIO;
@@ -20,10 +21,12 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
     private final String TOHOME = "TOHOME";
     private final String RETURN = "RETURN";
     private final String SICKLIST = "SICKLIST";
+    private final String ABOUT = "ABOUT";
 
     private int changedStatus = 0;
     private Long clientId = 0L;
     private Animal animal;
+    private Person person;
     private GridBagLayout gridBag = new GridBagLayout();
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -40,7 +43,6 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         gbc.insets = new Insets(5, 0, 0, 3);
         addFieldPanel("Кличка: ", animal.getName());
         gbc.insets = new Insets(0, 0, 0, 3);
-        addFieldPanel("№ вольера: ", animal.getCageNumber()+"");
         addFieldPanel("Тип: ", animal.getType());
         addFieldPanel("Порода: ", animal.getBreed());
         addFieldPanel("Пол: ", animal.getSexString());
@@ -48,7 +50,15 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         addFieldPanel("Цвет: ", animal.getColor());
         addFieldPanel("Дата регистрации: ", animal.getDateString());
         addFieldPanel("Статус: ", animal.getStatusString());
-
+        if (Math.abs(animal.getStatus()) == 1)
+            addFieldPanel("№ вольера: ", animal.getCageNumber()+"");
+        else {
+            for (AnimalStatus status : animal.getStatusList()) {
+                if (status.getPerson().getId() != 1L)
+                    person = status.getPerson();
+            }
+            addFieldPanel("Владелец: ", person.getSurname()+" "+person.getName());
+        }
         JPanel specSignsPanel = new JPanel();
         specSignsPanel.add(new JLabel("Особые приметы: "));
         JTextArea specSignsarea = new JTextArea(animal.getSpecialSigns());
@@ -101,8 +111,10 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
             buttonPanel.add(createButton("На передержку", TOOVEREX));
         if (absStatus > 0 && absStatus < 3)
             buttonPanel.add(createButton("Передача клиенту", TOHOME));
-        if (absStatus > 1)
+        if (absStatus > 1) {
             buttonPanel.add(createButton("Возврат", RETURN));
+            buttonPanel.add(createButton("Владелец", ABOUT));
+        }
         buttonPanel.add(createButton("Закрыть", CANCEL));
 
         gbc.gridx = 0;
@@ -186,6 +198,9 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
                 break;
             case SICKLIST:
                 SickListDialog sld = new SickListDialog(animal.getId());
+                break;
+            case ABOUT:
+                PersonShowDialog psd = new PersonShowDialog(person);
                 break;
             case CANCEL:
                 setVisible(false);

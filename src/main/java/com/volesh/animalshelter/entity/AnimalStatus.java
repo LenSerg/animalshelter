@@ -10,6 +10,7 @@ public class AnimalStatus {
     private String statusString;
     private Date statusDate;
 
+
     public AnimalStatus() {
     }
 

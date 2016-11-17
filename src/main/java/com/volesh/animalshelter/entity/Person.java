@@ -1,5 +1,6 @@
 package com.volesh.animalshelter.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,22 @@ public class Person {
     private int isPrivate;
     private Date registrationDate;
     private List<AnimalStatus> statusList;
+
+    public Person() {
+    }
+
+    public Person(String name, String surname, String patronymic, String passport, String email, String address, String phone, String role, int isPrivate, Date registrationDate) {
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.passport = passport;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+        this.isPrivate = isPrivate;
+        this.registrationDate = registrationDate;
+    }
 
     public List<AnimalStatus> getStatusList() {
         return statusList;
@@ -107,6 +124,10 @@ public class Person {
 
     public Date getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getRegistrationDateString() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(registrationDate);
     }
 
     public void setRegistrationDate(Date registrationDate) {

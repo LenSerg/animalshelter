@@ -3,6 +3,7 @@ package com.volesh.animalshelter.gui;
 import com.volesh.animalshelter.dao.AnimalDAO;
 import com.volesh.animalshelter.dao.SickDAO;
 import com.volesh.animalshelter.entity.SickAnimal;
+import com.volesh.animalshelter.gui.model.SickModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,10 +71,10 @@ public class SickListDialog extends JDialog implements ActionListener {
     private SickAnimal getSelectedSick() {
         int selectedRow = sickTable.getSelectedRow();
         if (selectedRow != -1) {
-            return sicks.get((int) sickTable.getValueAt(selectedRow - 1, 0));
+            return sicks.get((int) sickTable.getValueAt(selectedRow, 0) - 1);
         }
         else {
-            JOptionPane.showMessageDialog(this, "Вы должны выделить строку", "Внимание", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Необходимо выделить строку", "Внимание", JOptionPane.WARNING_MESSAGE);
             return null;
         }
     }

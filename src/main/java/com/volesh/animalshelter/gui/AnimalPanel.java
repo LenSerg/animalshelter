@@ -7,6 +7,7 @@ import com.volesh.animalshelter.dao.StatusDAO;
 import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.AnimalStatus;
 import com.volesh.animalshelter.entity.Photo;
+import com.volesh.animalshelter.gui.model.AnimalModel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -203,7 +204,7 @@ public class AnimalPanel extends JPanel implements ActionListener {
         if (selectedRowIndex != -1) {
             return animals.get((int) animalTable.getValueAt(selectedRowIndex, 0) - 1);
         } else {
-            JOptionPane.showMessageDialog(this, "Вы должны выделить строку", "Внимание", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Необходимо выделить запись в таблице", "Внимание", JOptionPane.WARNING_MESSAGE);
             return null;
         }
     }

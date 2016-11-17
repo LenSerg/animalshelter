@@ -1,4 +1,4 @@
-package com.volesh.animalshelter.gui;
+package com.volesh.animalshelter.gui.model;
 
 import com.volesh.animalshelter.entity.SickAnimal;
 

@@ -1,6 +1,5 @@
 package com.volesh.animalshelter.dao;
 
-import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.AnimalStatus;
 import com.volesh.animalshelter.entity.Person;
 import com.volesh.animalshelter.utils.HibernateUtil;
@@ -64,11 +63,37 @@ public class PersonDAO {
         session.getTransaction().commit();
         return result;
     }
+    public List<Person> findPersonByFilter(String name, String surname, String[] params) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        String query = "from Person where name like '%"+name+"%' and surname like '%"+surname+"%'";
+        if (!params[0].isEmpty() && !params[1].isEmpty())
+            query += " and (role like '%"+params[0]+"%' or role like '%"+params[1]+"%')";
+        else if (!params[0].isEmpty())
+            query += " and role like '%"+params[0]+"%'";
+        else if (!params[1].isEmpty())
+            query += " and role like '%"+params[1]+"%'";
+        else
+            query += "and role like 'error'";
+        List<Person> result = session.createQuery(query).list();
+        for (Person p : result) {
+            initializeStatusList(p);
+        }
+        session.getTransaction().commit();
+        return result;
+    }
     private void initializeStatusList(Person p) {
         Hibernate.initialize(p.getStatusList());
         for (AnimalStatus as : p.getStatusList()) {
             Hibernate.initialize(as.getAnimal());
         }
+    }
+
+    public void deletePerson(Person person) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.delete(person);
+        session.getTransaction().commit();
     }
 
 }
