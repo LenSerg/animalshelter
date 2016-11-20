@@ -1,11 +1,13 @@
 package com.volesh.animalshelter.gui;
 
+import com.volesh.animalshelter.dao.AnimalTypeDAO;
 import com.volesh.animalshelter.entity.Animal;
+import com.volesh.animalshelter.entity.AnimalType;
 import com.volesh.animalshelter.entity.Photo;
+import com.volesh.animalshelter.gui.model.TypeComboboxModel;
 import net.coobird.thumbnailator.Thumbnails;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,13 +21,14 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
     private static final String CANCEL = "CANCEL";
     private static final String CHOOSE = "CHOOSE";
     private static final String[] sex = {"неопред", "муж", "жен"};
-    private Animal animal;
-    private String photoPathname = "";
+    private final AnimalTypeDAO typeManager = new AnimalTypeDAO();
     private boolean save = false;
+    private String photoPathname = "";
+    private Animal animal;
 
     private final JTextField nameTF = new JTextField();
     private final JTextField cageNumberTF = new JTextField();
-    private final JTextField typeTF = new JTextField();
+    private final JComboBox typeCB = new JComboBox();
     private final JComboBox sexCB = new JComboBox<>(sex);
     private final JTextField breedTF = new JTextField();
     private final JTextField colorTF = new JTextField();
@@ -48,13 +51,17 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
         choosePanel.add(chooseTF, BorderLayout.WEST);
         choosePanel.add(chooseButton, BorderLayout.EAST);
 
+        typeCB.setModel(new TypeComboboxModel(typeManager.findType()));
+        typeCB.addActionListener(this);
+        typeCB.setSelectedIndex(0);
+
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.insets = new Insets(5, 5, 5, 5);
         fieldPanel.setLayout(gridBag);
         addField(new JLabel("Фото:"), choosePanel, 320, 25);
         addField(new JLabel("Кличка:"), nameTF, 200, 25);
         addField(new JLabel("№ вольера*:"), cageNumberTF, 200, 25);
-        addField(new JLabel("Вид*:"), typeTF, 200, 25);
+        addField(new JLabel("Вид*:"), typeCB, 100, 25);
         addField(new JLabel("Пол:"), sexCB, 100, 25);
         addField(new JLabel("Порода:"), breedTF, 200, 25);
         addField(new JLabel("Цвет*:"), colorTF, 200, 25);
@@ -79,12 +86,34 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    private boolean checkField(JTextField field) {
-        return !field.getText().trim().equals("");
+    private boolean stringIsEmpty(String str) {
+        return str.trim().equals("");
     }
 
-    private boolean isChecked() {
-        return checkField(typeTF) && checkField(cageNumberTF) && checkField(colorTF);
+    public String getPathname() {
+        String pathname = chooseTF.getText();
+        if (stringIsEmpty(pathname)) {
+            photoPathname = "";
+        } else if (!pathname.equals(photoPathname)) {
+            photoPathname = "src/main/resources/img/" + UUID.randomUUID().toString().substring(24) + ".jpg";
+            try {
+                Thumbnails.of(pathname).size(400, 300).toFile(photoPathname);
+            } catch (IOException ex) {
+            }
+        }
+        return photoPathname;
+    }
+
+    private boolean stringIsInteger(String str) {
+        boolean result = false;
+        if (!stringIsEmpty(str)) {
+            try {
+                Integer.parseInt(str);
+                result = true;
+            } catch(NumberFormatException ex) {
+            }
+        }
+        return result;
     }
 
     private void initField() {
@@ -94,26 +123,13 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
             chooseTF.setText(photoPathname);
         }
         nameTF.setText(animal.getName());
-        typeTF.setText(animal.getType());
+        typeCB.getModel().setSelectedItem(animal.getType());
         cageNumberTF.setText(animal.getCageNumber() + "");
         sexCB.setSelectedIndex(animal.getSex());
         breedTF.setText(animal.getBreed());
         colorTF.setText(animal.getColor());
-        ageTF.setText(animal.getAge() + "");
+        ageTF.setText(animal.getAgeString());
         specSignsTA.setText(animal.getSpecialSigns());
-    }
-
-    public String getImageFile() {
-        String filePath = null;
-        if (checkField(chooseTF) && !chooseTF.getText().equals(photoPathname)) {
-            filePath = "src/main/resources/img/" + UUID.randomUUID().toString().substring(24) + ".jpg";
-            try {
-                Thumbnails.of(chooseTF.getText()).size(400, 300).toFile(filePath);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return filePath;
     }
 
     private void addField(JLabel jLabel, JComponent component, int width, int high) {
@@ -140,37 +156,72 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
         return save;
     }
 
+    private void addType() {
+        if (((AnimalType) typeCB.getSelectedItem()).getId() == 1000) {
+            String typeStr = JOptionPane.showInputDialog(
+                    this,
+                    "Введите строку для добавления:",
+                    "Добавление типа", JOptionPane.PLAIN_MESSAGE);
+            if (typeStr == null)  {
+                typeCB.setSelectedIndex(0);
+            }
+            else if (typeStr.length() > 0) {
+                AnimalType type = new AnimalType(typeStr);
+                typeManager.addType(type);
+                typeCB.setModel(new TypeComboboxModel(typeManager.findType()));
+                typeCB.getModel().setSelectedItem(type);
+            }
+        }
+    }
+
+    private void selectFile() {
+        JFileChooser chooseDialog = new JFileChooser();
+        chooseDialog.setApproveButtonText("Select");
+        chooseDialog.setDialogTitle("Выберите фото для загрузки");
+        chooseDialog.showOpenDialog(this);
+        File file = chooseDialog.getSelectedFile();
+        if (file != null)
+            chooseTF.setText(file.getAbsolutePath());
+    }
+
+    private boolean fieldsValidation() {
+        if (!stringIsEmpty(chooseTF.getText()) && !(new File(chooseTF.getText())).exists()) {
+            JOptionPane.showMessageDialog(this, "Некорректное имя файла!",
+                    "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (stringIsEmpty(cageNumberTF.getText()) || stringIsEmpty(colorTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Поля, помеченные * обязательны для заполнения",
+                    "Внимание", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!stringIsInteger(cageNumberTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Поле '№ вольера' должно быть числом",
+                    "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!stringIsEmpty(ageTF.getText()) && !stringIsInteger(ageTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Поле 'Возраст' должно быть числом (в месяцах)",
+                    "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
+            case "comboBoxChanged":
+                addType();
+                break;
             case CHOOSE:
-                JFileChooser chooseDialog = new JFileChooser();
-                chooseDialog.setApproveButtonText("Select");
-                chooseDialog.setDialogTitle("Выберите фото для загрузки");
-                chooseDialog.showOpenDialog(this);
-                File file = chooseDialog.getSelectedFile();
-                if (file != null)
-                    chooseTF.setText(file.getAbsolutePath());
+                selectFile();
                 break;
             case SAVE:
-                if (!isChecked()) {
-                    JOptionPane.showMessageDialog(this, "Поля, помеченные * обязательны для заполнения",
-                            "Внимание", JOptionPane.WARNING_MESSAGE);
+                if (fieldsValidation())
+                    save = true;
+                else
                     break;
-                }
-                if (checkField(chooseTF) && !(new File(chooseTF.getText().trim()).exists())) {
-                    JOptionPane.showMessageDialog(this, "Такого файла не существует!",
-                            "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                try {
-                    Integer.parseInt(cageNumberTF.getText());
-                } catch(NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Поле \"№ вольера\" должно быть числом",
-                            "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                save = true;
             default:
                 setVisible(false);
                 break;
@@ -179,20 +230,27 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
 
     public Animal getUpdatedAnimal() {
         animal.setName(nameTF.getText());
-        animal.setType(typeTF.getText());
+        animal.setType((AnimalType) typeCB.getSelectedItem());
         animal.setSex(sexCB.getSelectedIndex());
         animal.setCageNumber(Integer.parseInt(cageNumberTF.getText()));
         animal.setBreed(breedTF.getText());
-        animal.setAge(ageTF.getText());
+        try {
+            animal.setAge(Integer.parseInt(ageTF.getText()));
+        } catch (NumberFormatException ex) {
+            animal.setAge(0);
+        }
         animal.setColor(colorTF.getText());
         animal.setSpecialSigns(specSignsTA.getText());
         return animal;
     }
 
     public Animal getNewAnimal() {
-        return new Animal(nameTF.getText(), typeTF.getText(), breedTF.getText(),
-                ageTF.getText(), colorTF.getText(), Integer.parseInt(cageNumberTF.getText()), sexCB.getSelectedIndex(),
+        Animal result = new Animal(nameTF.getText(), (AnimalType) typeCB.getSelectedItem(), breedTF.getText(),
+                0, colorTF.getText(), Integer.parseInt(cageNumberTF.getText()), sexCB.getSelectedIndex(),
                 specSignsTA.getText(), new Date(), 1);
+        if (!stringIsEmpty(ageTF.getText()))
+            Integer.parseInt(ageTF.getText());
+        return result;
     }
 
 }

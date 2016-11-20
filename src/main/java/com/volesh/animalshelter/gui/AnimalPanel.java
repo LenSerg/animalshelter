@@ -175,7 +175,7 @@ public class AnimalPanel extends JPanel implements ActionListener {
             animalManager.addAnimal(animal);
             statusManager.addStaus(new AnimalStatus(animal, personManager.findPersonById(1L),
                     "Поступление в приют", new Date()));
-            String imageFilename = animalEditDialog.getImageFile();
+            String imageFilename = animalEditDialog.getPathname();
             if (imageFilename != null)
                 photoManager.addPhoto(new Photo(animal, imageFilename, new Date()));
             loadAnimal();
@@ -191,7 +191,7 @@ public class AnimalPanel extends JPanel implements ActionListener {
                 animalManager.updateAnimal(updatedAnimal);
                 statusManager.addStaus(new AnimalStatus(animal, personManager.findPersonById(1L),
                         "Редактирование информации", new Date()));
-                String imageFilename = animalEditDialog.getImageFile();
+                String imageFilename = animalEditDialog.getPathname();
                 if (imageFilename != null)
                     photoManager.addPhoto(new Photo(updatedAnimal, imageFilename, new Date()));
                 loadAnimal();

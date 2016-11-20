@@ -7,9 +7,9 @@ import java.util.List;
 public class Animal {
     private Long id;
     private String name;
-    private String type;
+    private AnimalType type;
     private String breed;
-    private String age;
+    private Integer age;
     private Integer cageNumber;
     private String color;
     private Integer sex;
@@ -24,7 +24,7 @@ public class Animal {
 
     }
 
-    public Animal(String name, String type, String breed, String age,
+    public Animal(String name, AnimalType type, String breed, Integer age,
                   String color, Integer cageNumber, Integer sex, String specialSigns, Date registrationDate,
                   Integer status) {
         this.name = name;
@@ -83,11 +83,11 @@ public class Animal {
         this.name = name;
     }
 
-    public String getType() {
+    public AnimalType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AnimalType type) {
         this.type = type;
     }
 
@@ -99,11 +99,18 @@ public class Animal {
         this.breed = breed;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public String getAgeString() {
+        if (age == 0)
+            return "";
+        else
+            return age+"";
+    }
+
+    public void setAge(Integer age) {
         this.age = age;
     }
 

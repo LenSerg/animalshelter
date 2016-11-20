@@ -2,6 +2,7 @@ com/volesh/animalshelter/entity/SickAnimal.class
 com/volesh/animalshelter/dao/SickDAO.class
 com/volesh/animalshelter/gui/AnimalShowDialog.class
 com/volesh/animalshelter/dao/PersonDAO.class
+com/volesh/animalshelter/gui/model/TypeComboboxModel.class
 com/volesh/animalshelter/entity/Photo.class
 com/volesh/animalshelter/gui/model/SickModel.class
 com/volesh/animalshelter/entity/Animal.class
@@ -15,7 +16,9 @@ com/volesh/animalshelter/entity/Sponsor.class
 com/volesh/animalshelter/gui/PersonPanel.class
 com/volesh/animalshelter/gui/model/AnimalModel.class
 com/volesh/animalshelter/dao/StatusDAO.class
+com/volesh/animalshelter/dao/AnimalTypeDAO.class
 com/volesh/animalshelter/dao/AnimalDAO.class
+com/volesh/animalshelter/entity/AnimalType.class
 com/volesh/animalshelter/entity/AnimalStatus.class
 com/volesh/animalshelter/App.class
 com/volesh/animalshelter/gui/PersonEditDialog.class

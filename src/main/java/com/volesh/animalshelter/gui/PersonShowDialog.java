@@ -28,15 +28,15 @@ public class PersonShowDialog extends JDialog implements ActionListener{
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.insets = new Insets(5, 5, 5, 5);
         fieldPanel.setLayout(gridBag);
-        addField(new JLabel("Фамилия:"), new JTextField(person.getSurname()), 200, 25);
-        addField(new JLabel("Имя:"), new JTextField(person.getName()), 200, 25);
-        addField(new JLabel("Отчество:"), new JTextField(person.getPatronymic()), 200, 25);
-        addField(new JLabel("Пасспорт:"), new JTextField(person.getPassport()), 200, 25);
-        addField(new JLabel("Телефон:"), new JTextField(person.getPhone()), 200, 25);
-        addField(new JLabel("Email:"), new JTextField(person.getEmail()), 200, 25);
-        addField(new JLabel("Адрес:"), new JTextField(person.getAddress()), 200, 25);
-        addField(new JLabel("Дата регистрации:"), new JTextField(person.getRegistrationDateString()), 200, 25);
-        addField(new JLabel("Роль:"), new JTextField(person.getRole()), 200, 25);
+        addField("Фамилия:", person.getSurname(), 200, 25);
+        addField("Имя:", person.getName(), 200, 25);
+        addField("Отчество:", person.getPatronymic(), 200, 25);
+        addField("Пасспорт:", person.getPassport(), 200, 25);
+        addField("Телефон:", person.getPhone(), 200, 25);
+        addField("Email:", person.getEmail(), 200, 25);
+        addField("Адрес:", person.getAddress(), 200, 25);
+        addField("Дата регистрации:", person.getRegistrationDateString(), 200, 25);
+        addField("Роль:", person.getRole(), 200, 25);
         add(fieldPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
@@ -63,13 +63,15 @@ public class PersonShowDialog extends JDialog implements ActionListener{
     }
 
 
-    private void addField(JLabel jLabel, JTextField field, int width, int high) {
+    private void addField(String labelText, String fieldText, int width, int high) {
         gbc.gridx = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        gridBag.setConstraints(jLabel, gbc);
-        fieldPanel.add(jLabel);
+        JLabel label = new JLabel(labelText);
+        gridBag.setConstraints(label, gbc);
+        fieldPanel.add(label);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
+        JTextField field = new JTextField(fieldText);
         field.setEditable(false);
         field.setBorder(new EtchedBorder());
         field.setPreferredSize(new Dimension(width, high));

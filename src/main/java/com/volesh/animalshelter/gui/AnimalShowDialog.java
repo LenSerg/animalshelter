@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 public class AnimalShowDialog extends JDialog implements ActionListener {
 
@@ -43,20 +44,18 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         gbc.insets = new Insets(5, 0, 0, 3);
         addFieldPanel("Кличка: ", animal.getName());
         gbc.insets = new Insets(0, 0, 0, 3);
-        addFieldPanel("Тип: ", animal.getType());
+        addFieldPanel("Тип: ", animal.getType().toString());
         addFieldPanel("Порода: ", animal.getBreed());
         addFieldPanel("Пол: ", animal.getSexString());
-        addFieldPanel("Возраст: ", animal.getAge());
+        addFieldPanel("Возраст: ", animal.getAgeString());
         addFieldPanel("Цвет: ", animal.getColor());
         addFieldPanel("Дата регистрации: ", animal.getDateString());
         addFieldPanel("Статус: ", animal.getStatusString());
         if (Math.abs(animal.getStatus()) == 1)
             addFieldPanel("№ вольера: ", animal.getCageNumber()+"");
         else {
-            for (AnimalStatus status : animal.getStatusList()) {
-                if (status.getPerson().getId() != 1L)
-                    person = status.getPerson();
-            }
+            java.util.List<AnimalStatus> history = animal.getStatusList();
+            person = history.get(history.size() - 1).getPerson();
             addFieldPanel("Владелец: ", person.getSurname()+" "+person.getName());
         }
         JPanel specSignsPanel = new JPanel();
@@ -72,7 +71,6 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         gbc.gridy = 11;
         gridBag.setConstraints(specSignsPanel, gbc);
         add(specSignsPanel);
-
 
         JLabel imageLabel = new JLabel(getImage());
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.gray, 2));
@@ -197,10 +195,10 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
                 }
                 break;
             case SICKLIST:
-                SickListDialog sld = new SickListDialog(animal.getId());
+                new SickListDialog(animal.getId());
                 break;
             case ABOUT:
-                PersonShowDialog psd = new PersonShowDialog(person);
+                new PersonShowDialog(person);
                 break;
             case CANCEL:
                 setVisible(false);

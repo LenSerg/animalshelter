@@ -8,6 +8,7 @@
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/PersonEditDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/MainFrame.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/PersonDAO.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/TypeComboboxModel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/PersonModel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/PersonGetDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Photo.java
@@ -23,5 +24,7 @@
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/AnimalShowDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Person.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/AnimalModel.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/AnimalTypeDAO.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/utils/HibernateUtil.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/AnimalType.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Animal.java

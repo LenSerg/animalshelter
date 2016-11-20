@@ -168,7 +168,7 @@ public class PersonPanel extends JPanel implements ActionListener {
     private void viewPerson() {
         Person person = getSelectedPerson();
         if (person != null) {
-            PersonShowDialog showDialog = new PersonShowDialog(person);
+            new PersonShowDialog(person);
         }
     }
 
