@@ -12,6 +12,7 @@ public class TypeComboboxModel extends AbstractListModel<AnimalType> implements 
 
 
     public TypeComboboxModel(List<AnimalType> types) {
+        types.add(new AnimalType("Добавить..."));
         this.types = types;
         this.selection = null;
     }

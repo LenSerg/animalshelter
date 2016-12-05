@@ -36,16 +36,6 @@ public class AnimalDAO {
         session.getTransaction().commit();
         return result;
     }
-    public List<Animal> findAnimal() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<Animal> result = session.createQuery("from Animal").list();
-        for (Animal a : result) {
-            initializeAnimalOption(a);
-        }
-        session.getTransaction().commit();
-        return result;
-    }
     public List<Animal> findAnimalFilter(String type, String breed, int[] params) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -64,21 +54,13 @@ public class AnimalDAO {
         session.getTransaction().commit();
         return result;
     }
-    public List<Animal> findAnimalByStatus(int status) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<Animal> result = session.createQuery("from Animal where status=" + status).list();
-        for (Animal a : result) {
-            initializeAnimalOption(a);
-        }
-        session.getTransaction().commit();
-        return result;
-    }
     public void initializeAnimalOption(Animal animal) {
         Hibernate.initialize(animal.getSickList());
         Hibernate.initialize(animal.getPhotoList());
         Hibernate.initialize(animal.getStatusList());
         Hibernate.initialize(animal.getType());
+        Hibernate.initialize(animal.getOwner());
+        Hibernate.initialize(animal.getOwner().getAnimalList());
         for (AnimalStatus as : animal.getStatusList()) {
             Hibernate.initialize(as.getPerson());
         }

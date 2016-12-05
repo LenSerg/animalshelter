@@ -1,5 +1,6 @@
 package com.volesh.animalshelter.dao;
 
+import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.AnimalStatus;
 import com.volesh.animalshelter.entity.Person;
 import com.volesh.animalshelter.utils.HibernateUtil;
@@ -26,7 +27,7 @@ public class PersonDAO {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Person result = session.load(Person.class, id);
-        initializeStatusList(result);
+        initializeAnimalList(result);
         session.getTransaction().commit();
         return  result;
     }
@@ -35,7 +36,7 @@ public class PersonDAO {
         session.beginTransaction();
         List<Person> result = session.createQuery("from Person order by name").list();
         for (Person p : result) {
-            initializeStatusList(p);
+            initializeAnimalList(p);
         }
         session.getTransaction().commit();
         return result;
@@ -45,9 +46,8 @@ public class PersonDAO {
         session.beginTransaction();
         List<Person> result = session.createQuery("from Person where role like '%client%' " +
                 "or role like '%клиент%'").list();
-
         for (Person p : result) {
-            initializeStatusList(p);
+            initializeAnimalList(p);
         }
         session.getTransaction().commit();
         return result;
@@ -58,7 +58,7 @@ public class PersonDAO {
         List<Person> result = session.createQuery("from Person where role like '%overex%' " +
                 "or role like '%передерж%'").list();
         for (Person p : result) {
-            initializeStatusList(p);
+            initializeAnimalList(p);
         }
         session.getTransaction().commit();
         return result;
@@ -77,15 +77,15 @@ public class PersonDAO {
             query += "and role like 'error'";
         List<Person> result = session.createQuery(query).list();
         for (Person p : result) {
-            initializeStatusList(p);
+            initializeAnimalList(p);
         }
         session.getTransaction().commit();
         return result;
     }
-    private void initializeStatusList(Person p) {
-        Hibernate.initialize(p.getStatusList());
-        for (AnimalStatus as : p.getStatusList()) {
-            Hibernate.initialize(as.getAnimal());
+    private void initializeAnimalList(Person p) {
+        Hibernate.initialize(p.getAnimalList());
+        for (Animal animal : p.getAnimalList()) {
+            Hibernate.initialize(animal.getType());
         }
     }
 

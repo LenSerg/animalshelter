@@ -16,12 +16,13 @@ public class Person {
     private String role;
     private int isPrivate;
     private Date registrationDate;
-    private List<AnimalStatus> statusList;
+    private List<Animal> animalList;
 
     public Person() {
     }
 
-    public Person(String name, String surname, String patronymic, String passport, String email, String address, String phone, String role, int isPrivate, Date registrationDate) {
+    public Person(String name, String surname, String patronymic, String passport, String email,
+                  String address, String phone, String role, int isPrivate, Date registrationDate) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -34,12 +35,12 @@ public class Person {
         this.registrationDate = registrationDate;
     }
 
-    public List<AnimalStatus> getStatusList() {
-        return statusList;
+    public List<Animal> getAnimalList() {
+        return animalList;
     }
 
-    public void setStatusList(List<AnimalStatus> statusList) {
-        this.statusList = statusList;
+    public void setAnimalList(List<Animal> animalList) {
+        this.animalList = animalList;
     }
 
     public Long getId() {

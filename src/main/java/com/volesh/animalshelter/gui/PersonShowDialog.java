@@ -1,5 +1,7 @@
 package com.volesh.animalshelter.gui;
 
+import com.volesh.animalshelter.dao.AnimalDAO;
+import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.Person;
 
 import javax.swing.*;
@@ -8,20 +10,22 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 public class PersonShowDialog extends JDialog implements ActionListener{
     private static final String CANCEL = "CANCEL";
 
-
-    Person person;
+    private AnimalDAO animalManager = new AnimalDAO();
     private GridBagLayout gridBag = new GridBagLayout();
     private GridBagConstraints gbc = new GridBagConstraints();
     private JPanel fieldPanel = new JPanel();
+    private JTable animalTable;
+    private Person person;
 
     public PersonShowDialog(Person person) {
-        this.person = person;
 
         setTitle("Информация о клиенте");
+        this.person = person;
 
         setLayout(new BorderLayout());
 
@@ -37,7 +41,25 @@ public class PersonShowDialog extends JDialog implements ActionListener{
         addField("Адрес:", person.getAddress(), 200, 25);
         addField("Дата регистрации:", person.getRegistrationDateString(), 200, 25);
         addField("Роль:", person.getRole(), 200, 25);
-        add(fieldPanel, BorderLayout.CENTER);
+        fieldPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        add(fieldPanel, BorderLayout.WEST);
+
+        animalTable = initTable();
+        animalTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        animalTable.getTableHeader().setReorderingAllowed(false);
+        animalTable.setAutoCreateRowSorter(true);
+        animalTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+        animalTable.getColumnModel().getColumn(4).setPreferredWidth(140);
+
+        JLabel tableName = new JLabel("Переданные животные");
+        tableName.setBorder(BorderFactory.createEmptyBorder(7, 150, 15, 0));
+        tableName.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel tablePanel = new JPanel(new BorderLayout());
+        tablePanel.add(new JScrollPane(animalTable), BorderLayout.CENTER);
+        tablePanel.add(tableName, BorderLayout.NORTH);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 17, 15));
+        add(tablePanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(createButton("Закрыть", CANCEL));
@@ -47,10 +69,26 @@ public class PersonShowDialog extends JDialog implements ActionListener{
 
         setModal(true);
         setResizable(false);
-        setBounds(450, 220, 400, 420);
+        setBounds(450, 220, 850, 420);
         setVisible(true);
 
 
+    }
+
+    private JTable initTable() {
+        java.util.List<Animal> animals = person.getAnimalList();
+        String[] columnNames = {"№", "Кличка", "Пол", "Вид", "Порода", "Возраст"};
+        Object[][] tableInit = new Object[animals.size()][columnNames.length];
+        for (int i = 0; i < animals.size(); i++) {
+            Animal animal = animals.get(i);
+            tableInit[i][0] = i + 1;
+            tableInit[i][1] = animal.getName();
+            tableInit[i][2] = animal.getSexString();
+            tableInit[i][3] = animal.getType().getName();
+            tableInit[i][4] = animal.getBreed();
+            tableInit[i][5] = animal.getAge();
+        }
+        return new JTable(tableInit, columnNames);
     }
 
 

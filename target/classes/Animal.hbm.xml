@@ -20,6 +20,7 @@
             <one-to-many class="AnimalStatus"/>
         </bag>
         <many-to-one name="type" column="type_id" class="com.volesh.animalshelter.entity.AnimalType"/>
+        <many-to-one name="owner" column="owner_id" class="com.volesh.animalshelter.entity.Person"/>
         <property name="name" column="name"/>
         <property name="cageNumber" column="cageNumber"/>
         <property name="breed" column="breed"/>

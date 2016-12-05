@@ -27,7 +27,6 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
     private int changedStatus = 0;
     private Long clientId = 0L;
     private Animal animal;
-    private Person person;
     private GridBagLayout gridBag = new GridBagLayout();
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -54,9 +53,7 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         if (Math.abs(animal.getStatus()) == 1)
             addFieldPanel("№ вольера: ", animal.getCageNumber()+"");
         else {
-            java.util.List<AnimalStatus> history = animal.getStatusList();
-            person = history.get(history.size() - 1).getPerson();
-            addFieldPanel("Владелец: ", person.getSurname()+" "+person.getName());
+            addFieldPanel("Владелец: ", animal.getOwner().getSurname()+" "+animal.getOwner().getName());
         }
         JPanel specSignsPanel = new JPanel();
         specSignsPanel.add(new JLabel("Особые приметы: "));
@@ -151,8 +148,12 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
         java.util.List<Photo> photos = animal.getPhotoList();
         String filename;
         if (photos.size() > 0) {
-            filename = photos.get(photos.size()-1).getUrl();
-        } else {
+            filename = photos.get(photos.size() - 1).getUrl();
+            if (filename.equals("")) {
+                filename = "src/main/resources/img/anonim.jpg";
+            }
+        }
+        else {
             filename = "src/main/resources/img/anonim.jpg";
         }
         ImageIcon result = null;
@@ -198,7 +199,7 @@ public class AnimalShowDialog extends JDialog implements ActionListener {
                 new SickListDialog(animal.getId());
                 break;
             case ABOUT:
-                new PersonShowDialog(person);
+                new PersonShowDialog(animal.getOwner());
                 break;
             case CANCEL:
                 setVisible(false);

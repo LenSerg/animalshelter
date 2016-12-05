@@ -94,7 +94,10 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
         String pathname = chooseTF.getText();
         if (stringIsEmpty(pathname)) {
             photoPathname = "";
-        } else if (!pathname.equals(photoPathname)) {
+        } else if (pathname.equals(photoPathname)) {
+            photoPathname = null;
+        }
+        else {
             photoPathname = "src/main/resources/img/" + UUID.randomUUID().toString().substring(24) + ".jpg";
             try {
                 Thumbnails.of(pathname).size(400, 300).toFile(photoPathname);
@@ -157,7 +160,7 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
     }
 
     private void addType() {
-        if (((AnimalType) typeCB.getSelectedItem()).getId() == 1000) {
+        if (((AnimalType) typeCB.getSelectedItem()).getId() == null) {
             String typeStr = JOptionPane.showInputDialog(
                     this,
                     "Введите строку для добавления:",
@@ -245,11 +248,11 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
     }
 
     public Animal getNewAnimal() {
-        Animal result = new Animal(nameTF.getText(), (AnimalType) typeCB.getSelectedItem(), breedTF.getText(),
+        Animal result = new Animal(nameTF.getText(), null, (AnimalType) typeCB.getSelectedItem(), breedTF.getText(),
                 0, colorTF.getText(), Integer.parseInt(cageNumberTF.getText()), sexCB.getSelectedIndex(),
                 specSignsTA.getText(), new Date(), 1);
         if (!stringIsEmpty(ageTF.getText()))
-            Integer.parseInt(ageTF.getText());
+            result.setAge(Integer.parseInt(ageTF.getText()));
         return result;
     }
 

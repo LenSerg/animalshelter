@@ -11,7 +11,7 @@ public class AnimalTypeDAO {
     public List<AnimalType> findType() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        List<AnimalType> result = session.createQuery("from AnimalType").list();
+        List<AnimalType> result = session.createQuery("from AnimalType order by id").list();
         session.getTransaction().commit();
         return  result;
     }
@@ -24,11 +24,4 @@ public class AnimalTypeDAO {
         return result;
     }
 
-    public AnimalType findTypeById(Long id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        AnimalType result = session.load(AnimalType.class, id);
-        session.getTransaction().commit();
-        return result;
-    }
 }

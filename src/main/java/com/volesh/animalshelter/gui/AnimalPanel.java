@@ -6,6 +6,7 @@ import com.volesh.animalshelter.dao.PhotoDAO;
 import com.volesh.animalshelter.dao.StatusDAO;
 import com.volesh.animalshelter.entity.Animal;
 import com.volesh.animalshelter.entity.AnimalStatus;
+import com.volesh.animalshelter.entity.Person;
 import com.volesh.animalshelter.entity.Photo;
 import com.volesh.animalshelter.gui.model.AnimalModel;
 
@@ -159,9 +160,11 @@ public class AnimalPanel extends JPanel implements ActionListener {
                         break;
                 }
                 changedStatus = changedStatus < 0 ? -changedStatus : changedStatus;
+                Person owner = personManager.findPersonById(animalShowDialog.getClientId());
                 animal.setStatus(changedStatus);
+                animal.setOwner(owner);
                 animalManager.updateAnimal(animal);
-                statusManager.addStaus(new AnimalStatus(animal, personManager.findPersonById(animalShowDialog.getClientId()),
+                statusManager.addStaus(new AnimalStatus(animal, owner,
                         statusStr, new Date()));
                 loadAnimal();
             }
@@ -172,6 +175,7 @@ public class AnimalPanel extends JPanel implements ActionListener {
         AnimalEditDialog animalEditDialog = new AnimalEditDialog(null, "Добавление животного");
         if (animalEditDialog.isSave()) {
             Animal animal = animalEditDialog.getNewAnimal();
+            animal.setOwner(personManager.findPersonById(1L));
             animalManager.addAnimal(animal);
             statusManager.addStaus(new AnimalStatus(animal, personManager.findPersonById(1L),
                     "Поступление в приют", new Date()));

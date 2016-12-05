@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Animal {
     private Long id;
+    private Person owner;
     private String name;
     private AnimalType type;
     private String breed;
@@ -24,9 +25,10 @@ public class Animal {
 
     }
 
-    public Animal(String name, AnimalType type, String breed, Integer age,
+    public Animal(String name, Person owner, AnimalType type, String breed, Integer age,
                   String color, Integer cageNumber, Integer sex, String specialSigns, Date registrationDate,
                   Integer status) {
+        this.owner = owner;
         this.name = name;
         this.type = type;
         this.breed = breed;
@@ -37,6 +39,14 @@ public class Animal {
         this.specialSigns = specialSigns;
         this.registrationDate = registrationDate;
         this.status = status;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 
     public Integer getCageNumber() {
