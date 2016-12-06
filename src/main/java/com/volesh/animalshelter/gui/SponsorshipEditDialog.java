@@ -40,7 +40,6 @@ public class SponsorshipEditDialog extends JDialog implements ActionListener {
 
         resourceCB.setModel(new ResourceComboboxModel(resourceManager.findResource()));
         resourceCB.addActionListener(this);
-        resourceCB.setSelectedIndex(0);
 
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -121,7 +120,7 @@ public class SponsorshipEditDialog extends JDialog implements ActionListener {
                     "Введите строку для добавления:",
                     "Добавление ресурса", JOptionPane.PLAIN_MESSAGE);
             if (typeStr == null) {
-                resourceCB.setSelectedIndex(0);
+                resourceCB.setSelectedIndex(-1);
             } else if (typeStr.length() > 0) {
                 Resource resource = new Resource(typeStr, 0);
                 resourceManager.addResource(resource);

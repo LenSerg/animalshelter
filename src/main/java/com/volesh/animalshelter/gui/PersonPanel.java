@@ -91,7 +91,7 @@ public class PersonPanel extends JPanel implements ActionListener {
     }
 
 
-    private void loadModel() {
+    public void loadModel() {
         String[] params = {"", ""};
         if (clientCheck.isSelected())
             params[0] = "клиент";

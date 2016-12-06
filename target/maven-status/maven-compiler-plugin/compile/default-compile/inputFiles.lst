@@ -14,16 +14,19 @@
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/TypeComboboxModel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/PersonModel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/SponsorDAO.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/RegistrationDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/PersonGetDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Photo.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/model/SickModel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/PersonPanel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/PhotoDAO.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/UserDAO.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Sponsor.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/AnimalEditDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/PersonShowDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/SponsorshipEditDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/App.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/AuthDialog.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/SickDAO.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/DeadAnimal.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/SponsorEditDialog.java
@@ -38,5 +41,6 @@
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/SponsorPanel.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/AnimalType.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/gui/SponsorShowDialog.java
+/home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/User.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/entity/Animal.java
 /home/sergey/IdeaProjects/AnimalShelter/src/main/java/com/volesh/animalshelter/dao/SponsorshipDAO.java

@@ -39,6 +39,7 @@
         <mapping resource="AnimalType.hbm.xml"/>
         <mapping resource="Sponsorship.hbm.xml"/>
         <mapping resource="Resource.hbm.xml"/>
+        <mapping resource="User.hbm.xml"/>
 
     </session-factory>
 

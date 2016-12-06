@@ -53,7 +53,6 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
 
         typeCB.setModel(new TypeComboboxModel(typeManager.findType()));
         typeCB.addActionListener(this);
-        typeCB.setSelectedIndex(0);
 
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -166,7 +165,7 @@ public class AnimalEditDialog extends JDialog implements ActionListener {
                     "Введите строку для добавления:",
                     "Добавление типа", JOptionPane.PLAIN_MESSAGE);
             if (typeStr == null)  {
-                typeCB.setSelectedIndex(0);
+                typeCB.setSelectedIndex(-1);
             }
             else if (typeStr.length() > 0) {
                 AnimalType type = new AnimalType(typeStr);
